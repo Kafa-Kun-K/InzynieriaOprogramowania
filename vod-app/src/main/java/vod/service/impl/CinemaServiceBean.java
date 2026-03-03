@@ -1,5 +1,7 @@
 package vod.service.impl;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import vod.model.Cinema;
 import vod.model.Movie;
 import vod.repository.CinemaDao;
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+@Component
+@Scope("prototype")
 public class CinemaServiceBean implements CinemaService {
 
     private static final Logger log = Logger.getLogger(CinemaService.class.getName());

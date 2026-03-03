@@ -1,5 +1,7 @@
 package vod.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import vod.repository.CinemaDao;
 import vod.repository.DirectorDao;
 import vod.repository.MovieDao;
@@ -12,9 +14,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
+@Component
 public class MovieServiceBean implements MovieService {
 
     private static final Logger log = Logger.getLogger(MovieService.class.getName());
+
+    @Autowired
+    public void setDirectorDao(DirectorDao directorDao) {
+        this.directorDao = directorDao;
+    }
 
     private DirectorDao directorDao;
     private CinemaDao cinemaDao;

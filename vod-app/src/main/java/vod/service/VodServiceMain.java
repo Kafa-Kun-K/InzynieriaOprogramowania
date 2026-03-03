@@ -19,10 +19,13 @@ public class VodServiceMain {
 
         ApplicationContext context = new AnnotationConfigApplicationContext("vod");
         CinemaService service = context.getBean(CinemaService.class);
+        CinemaService service2 = context.getBean(CinemaService.class);
 
-        // service use
         List<Cinema> cinemas = service.getAllCinemas();
         System.out.println(cinemas.size() + " cinemas found:");
         cinemas.forEach(System.out::println);
+
+        String foo = context.getBean(String.class);
+        System.out.println("foo string: " + foo);
     }
 }

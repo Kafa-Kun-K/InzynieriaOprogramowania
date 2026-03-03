@@ -3,25 +3,25 @@ package vod.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Movie {
+public class Book {
 
     private int id;
     private String title;
-    private String poster;//url
-    private Director director;//relacja do rezysera - kolejny obiekt danych w uproszczeniu założenie że jeden film ma 1 reżysera
+    private String cover;//url
+    private Author author;//relacja do rezysera - kolejny obiekt danych w uproszczeniu założenie że jeden film ma 1 reżysera
     private float rating;//rating
-    private List<Cinema> cinemas = new ArrayList<>();
+    private List<Library> libraries = new ArrayList<>();
 //relacja wiele do wiele - bidirectional
 
-    public Movie(int id, String title, String poster, Director director, float rating) {
+    public Book(int id, String title, String cover, Author author, float rating) {
         this.id = id;
         this.title = title;
-        this.poster = poster;
-        this.director = director;
+        this.cover = cover;
+        this.author = author;
         this.rating = rating;
     }
 
-    public Movie() {
+    public Book() {
     }
 
     public int getId() {
@@ -32,28 +32,26 @@ public class Movie {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() { return title; }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getPoster() {
-        return poster;
+    public String getCover() {
+        return cover;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
-    public Director getDirector() {
-        return director;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setDirector(Director director) {
-        this.director = director;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public float getRating() {
@@ -64,16 +62,16 @@ public class Movie {
         this.rating = rating;
     }
 
-    public List<Cinema> getCinemas() {
-        return cinemas;
+    public List<Library> getLibraries() {
+        return libraries;
     }
 
-    public void setCinemas(List<Cinema> cinemas) {
-        this.cinemas = cinemas;
+    public void setLibraries(List<Library> libraries) {
+        this.libraries = libraries;
     }
 
-    public void addCinema(Cinema c) {
-        this.cinemas.add(c);
+    public void addLibrary(Library l) {
+        this.libraries.add(l);
     }
 
 
@@ -101,9 +99,9 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
+        return "Book{" +
                 "title='" + title + '\'' +
-                ", director=" + director +
+                ", director=" + author +
                 ", rating=" + rating +
                 '}';
     }

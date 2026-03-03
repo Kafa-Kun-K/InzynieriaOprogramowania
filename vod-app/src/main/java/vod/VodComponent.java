@@ -7,8 +7,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import vod.model.Cinema;
-import vod.service.CinemaService;
+import vod.model.Library;
+import vod.service.LibraryService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,9 +16,9 @@ import java.util.List;
 @Component
 @Slf4j
 public class VodComponent implements CommandLineRunner, ApplicationListener<ContextRefreshedEvent> {
-    private final CinemaService cinemaService;
+    private final LibraryService libraryService;
 
-    public VodComponent(CinemaService cinemaService) { this.cinemaService = cinemaService; }
+    public VodComponent(LibraryService libraryService) { this.libraryService = libraryService; }
 
     @PostConstruct
     void init() {
@@ -33,9 +33,9 @@ public class VodComponent implements CommandLineRunner, ApplicationListener<Cont
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         log.info("on context refreshed");
-        List<Cinema> cinemas = cinemaService.getAllCinemas();
-        log.info("{} cinemas found.", cinemas.size());
-        cinemas.forEach(cinema->log.info("{}", cinema));
+        List<Library> libraries = libraryService.getAllLibraries();
+        log.info("{} libraries found.", libraries.size());
+        libraries.forEach(cinema->log.info("{}", cinema));
     }
 
     @EventListener

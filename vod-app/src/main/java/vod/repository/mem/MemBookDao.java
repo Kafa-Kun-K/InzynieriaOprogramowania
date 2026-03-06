@@ -1,6 +1,6 @@
 package vod.repository.mem;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import vod.repository.BookDao;
 import vod.model.Library;
 import vod.model.Author;
@@ -9,7 +9,7 @@ import vod.model.Book;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Repository
 public class MemBookDao implements BookDao {
     @Override
     public List<Book> findAll() {

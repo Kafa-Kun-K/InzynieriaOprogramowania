@@ -6,7 +6,7 @@ import vod.model.Book;
 import java.util.List;
 
 public interface LibraryService {
-//api zwraca nam wszystkie kina
+
     Library getLibraryById(int id);
 
     List<Library> getAllLibraries();
@@ -15,4 +15,5 @@ public interface LibraryService {
 
     List<Book> getBooksInLibrary(Library l);
 
+    Library addLibrary(Library library);
 }

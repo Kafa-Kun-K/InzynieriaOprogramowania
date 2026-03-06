@@ -1,0 +1,24 @@
+### get all libraries
+GET http://localhost:8080/webapi/libraries
+
+### get all libraries with params
+GET http://localhost:8080/webapi/libraries?phrase=abc
+custom-header: custom-value
+Cookie: some-cookie=some-value
+
+### get library by id
+GET http://localhost:8080/webapi/libraries/1
+Accept: application/xml
+
+### get libraries available in book
+GET http://localhost:8080/webapi/books/1/libraries
+Accept: application/json
+
+### create new library
+POST http://localhost:8080/webapi/libraries
+Content-Type: application/json
+
+{
+  "name": "Biblioteka Śląska",
+  "logo": "https://bs.katowice.pl/"
+}

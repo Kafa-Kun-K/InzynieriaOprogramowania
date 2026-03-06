@@ -1,7 +1,7 @@
 package vod.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import vod.repository.LibraryDao;
 import vod.repository.AuthorDao;
 import vod.repository.BookDao;
@@ -13,7 +13,7 @@ import vod.service.BookService;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Component
+@Service
 public class BookServiceBean implements BookService {
 
     private static final Logger log = Logger.getLogger(BookService.class.getName());

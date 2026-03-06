@@ -1,7 +1,7 @@
 package vod.service.impl;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import vod.model.Library;
 import vod.model.Book;
 import vod.repository.LibraryDao;
@@ -11,7 +11,7 @@ import vod.service.LibraryService;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Component
+@Service
 @Scope("prototype")
 public class LibraryServiceBean implements LibraryService {
 
@@ -48,6 +48,12 @@ public class LibraryServiceBean implements LibraryService {
     public List<Library> getLibrariesByBook(Book b) {
         log.info("searching libraries by book " + b.getId());
         return libraryDao.findByBook(b);
+    }
+
+    @Override
+    public Library addLibrary(Library library) {
+        log.info("adding new library " + library);
+        return libraryDao.save(library);
     }
 
 }

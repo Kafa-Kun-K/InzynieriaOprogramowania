@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 import vod.model.Book;
@@ -28,6 +29,10 @@ public class LibraryRest {
     private final BookService bookService;
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
+    private final LibraryValidator validator;
+
+    @InitBinder
+    void initBinder (WebDataBinder binder) { binder.addValidators(validator); }
 
     @GetMapping("/libraries")
     List<Library> getLibraries(

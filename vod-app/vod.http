@@ -17,6 +17,7 @@ Accept: application/json
 ### create new library
 POST http://localhost:8080/webapi/libraries
 Content-Type: application/json
+Accept-Language: it
 
 {
   "name": "Biblioteka Śląska",

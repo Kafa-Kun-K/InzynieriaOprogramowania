@@ -23,7 +23,7 @@ public class LibraryValidator implements Validator {
         boolean duplicated = libraryService.getAllLibraries().stream()
                 .anyMatch(library -> library.getName().equalsIgnoreCase(validatedLibrary.getName()));
         if(duplicated) {
-            errors.rejectValue("name", "cinema.name.duplicated");
+            errors.rejectValue("name", "library.name.duplicated");
         }
     }
 }

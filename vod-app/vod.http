@@ -2,7 +2,7 @@
 GET http://localhost:8080/webapi/libraries
 
 ### get all libraries with params
-GET http://localhost:8080/webapi/libraries?phrase=abc
+GET http://localhost:8080/webapi/libraries?phrase=foo
 custom-header: custom-value
 Cookie: some-cookie=some-value
 
@@ -41,5 +41,5 @@ Content-Type: application/json
   "title": "IO",
   "cover": "",
   "rating": 4.5,
-  "authorId": 3
+  "authorId": 4
 }

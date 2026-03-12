@@ -44,6 +44,10 @@ public class LibraryRest {
         log.info("phrase param: {}", phrase);
         log.info("custom header param: {}", customHeader);
         log.info("some cookie value: {}", someCookie);
+
+        if(phrase!=null && phrase.equals("foo")) {
+            throw new IllegalArgumentException("Foo!");
+        }
         List<Library> libraries = libraryService.getAllLibraries();
         log.info("{} libraries found", libraries.size());
         return libraries;

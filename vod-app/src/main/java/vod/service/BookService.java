@@ -16,7 +16,6 @@ public interface BookService {
 
     Book addBook(Book b);
 
-
     List<Author> getAllAuthors();
 
     Author getAuthorById(int id);

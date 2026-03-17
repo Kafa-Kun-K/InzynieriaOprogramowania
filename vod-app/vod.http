@@ -41,5 +41,5 @@ Content-Type: application/json
   "title": "IO",
   "cover": "",
   "rating": 4.5,
-  "authorId": 4
+  "authorId": 1
 }

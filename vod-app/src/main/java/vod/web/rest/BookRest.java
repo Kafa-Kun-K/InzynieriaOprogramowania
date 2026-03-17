@@ -1,5 +1,6 @@
 package vod.web.rest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
@@ -7,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,6 +19,7 @@ import vod.service.LibraryService;
 import vod.web.rest.dto.BookDTO;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +31,12 @@ public class BookRest {
     private final BookService bookService;
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
+    private final BookValidator bookValidator;
+
+    @InitBinder("bookDTO")
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(bookValidator);
+    }
 
     @GetMapping("/books")
     List<Book> getBooks() {
@@ -63,10 +72,14 @@ public class BookRest {
     }
 
     @PostMapping("/books")
-    ResponseEntity<?> addBook(@Validated @RequestBody BookDTO bookDTO, Errors errors) {
+    ResponseEntity<?> addBook(@Validated @RequestBody BookDTO bookDTO, Errors errors, HttpServletRequest request) {
         log.info("about to add new book {}", bookDTO);
         if(errors.hasErrors()) {
-            return ResponseEntity.badRequest().build();
+            Locale locale = localeResolver.resolveLocale(request);
+            String errorMessage = errors.getAllErrors().stream()
+                    .map(oe -> messageSource.getMessage(oe.getCode(), new Object[0], locale))
+                    .reduce("errors:\n", (accu, oe) -> accu + oe + "\n");
+            return ResponseEntity.badRequest().body(errorMessage);
         }
         Book book = new Book();
         book.setTitle(bookDTO.getTitle());

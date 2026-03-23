@@ -38,8 +38,11 @@ POST http://localhost:8080/webapi/books
 Content-Type: application/json
 
 {
-  "title": "Apocalypse Now",
+  "title": "IO",
   "cover": "",
   "rating": 4.5,
   "authorId": 3
 }
+
+### shutdown service
+POST http://localhost:8080/actuator/shutdown

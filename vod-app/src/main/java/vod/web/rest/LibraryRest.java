@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -89,6 +91,10 @@ public class LibraryRest {
                     .reduce("errors:\n", (accu, oe)->accu + oe + "\n");
             return ResponseEntity.badRequest().body(errorMessage);
         }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("authentication: {}", authentication);
+        log.info("authentication name: {}", authentication.getName());
 
         library = libraryService.addLibrary(library);
         log.info("new library add {}", library);

@@ -18,6 +18,7 @@ Accept: application/json
 POST http://localhost:8080/webapi/libraries
 Content-Type: application/json
 Accept-Language: js
+Authorization: Basic dbuser1 dbuser1
 
 {
   "name": "Biblioteka Śląska",

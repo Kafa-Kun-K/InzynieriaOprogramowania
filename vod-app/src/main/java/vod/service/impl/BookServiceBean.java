@@ -1,8 +1,14 @@
 package vod.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import vod.repository.LibraryDao;
 import vod.repository.AuthorDao;
 import vod.repository.BookDao;
@@ -15,25 +21,15 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class BookServiceBean implements BookService {
 
     private static final Logger log = Logger.getLogger(BookService.class.getName());
 
-    @Autowired
-    public void setAuthorDao(AuthorDao authorDao) {
-        this.authorDao = authorDao;
-    }
-
-    private AuthorDao authorDao;
-    private LibraryDao libraryDao;
-    private BookDao bookDao;
-
-    public BookServiceBean(AuthorDao authorDao, LibraryDao libraryDao, BookDao bookDao) {
-        this.authorDao = authorDao;
-        this.libraryDao = libraryDao;
-        this.bookDao = bookDao;
-    }
+    private final AuthorDao authorDao;
+    private final LibraryDao libraryDao;
+    private final BookDao bookDao;
+    private final PlatformTransactionManager transactionManager;
 
     public List<Book> getAllBooks() {
         log.info("searching books by author...");
@@ -80,10 +76,22 @@ public class BookServiceBean implements BookService {
         return authorDao.findById(id);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Book addBook(Book b) {
         log.info("about to add book " + b);
-        return bookDao.add(b);
+        TransactionStatus ts = transactionManager.getTransaction(new DefaultTransactionDefinition());
+        try {
+            b = bookDao.add(b);
+            if (b.getTitle().equals("Apocalypse Now")) {
+                throw new RuntimeException("not yet!");
+            }
+            transactionManager.commit(ts);
+        } catch (RuntimeException e) {
+            transactionManager.rollback(ts);
+            throw e;
+        }
+        return b;
     }
 
     @Override
@@ -91,5 +99,4 @@ public class BookServiceBean implements BookService {
         log.info("about to add author " + a);
         return authorDao.add(a);
     }
-
 }

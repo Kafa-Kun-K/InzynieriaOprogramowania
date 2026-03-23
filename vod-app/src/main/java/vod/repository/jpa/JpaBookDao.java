@@ -2,7 +2,6 @@ package vod.repository.jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import vod.model.Author;
 import vod.model.Book;
@@ -12,7 +11,6 @@ import vod.repository.BookDao;
 import java.util.List;
 
 @Repository
-@Primary
 public class JpaBookDao implements BookDao {
 
     @PersistenceContext

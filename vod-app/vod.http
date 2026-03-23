@@ -38,8 +38,8 @@ POST http://localhost:8080/webapi/books
 Content-Type: application/json
 
 {
-  "title": "IO",
+  "title": "Apocalypse Now",
   "cover": "",
   "rating": 4.5,
-  "authorId": 4
+  "authorId": 3
 }
